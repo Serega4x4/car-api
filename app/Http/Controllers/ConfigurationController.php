@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ConfigurationStoreRequest;
+use App\Http\Requests\ConfigurationUpdateRequest;
 use App\Models\Configuration;
-use Illuminate\Http\Request;
 
 class ConfigurationController extends Controller
 {
@@ -12,12 +13,9 @@ class ConfigurationController extends Controller
         return Configuration::all();
     }
 
-    public function store(Request $request)
+    public function store(ConfigurationStoreRequest $request)
     {
-        $validated = $request->validate([
-            'car_id' => 'required|exists:cars,id',
-            'name' => 'required|string|max:255',
-        ]);
+        $validated = $request->validate();
         return Configuration::create($validated);
     }
 
@@ -26,12 +24,9 @@ class ConfigurationController extends Controller
         return Configuration::findOrFail($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(ConfigurationUpdateRequest $request, $id)
     {
-        $validated = $request->validate([
-            'car_id' => 'required|exists:cars,id',
-            'name' => 'required|string|max:255',
-        ]);
+        $validated = $request->validate();
         $configuration = Configuration::findOrFail($id);
         $configuration->update($validated);
         return $configuration;

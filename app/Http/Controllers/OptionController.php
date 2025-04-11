@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OptionStoreRequest;
+use App\Http\Requests\OptionUpdateRequest;
 use App\Models\Option;
-use Illuminate\Http\Request;
 
 class OptionController extends Controller
 {
@@ -12,11 +13,9 @@ class OptionController extends Controller
         return Option::all();
     }
 
-    public function store(Request $request)
+    public function store(OptionStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        $validated = $request->validate();
         return Option::create($validated);
     }
 
@@ -25,11 +24,9 @@ class OptionController extends Controller
         return Option::findOrFail($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(OptionUpdateRequest $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        $validated = $request->validate();
         $option = Option::findOrFail($id);
         $option->update($validated);
         return $option;

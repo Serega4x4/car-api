@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PriceStoreRequest;
+use App\Http\Requests\PriceUpdateRequest;
 use App\Models\Price;
-use Illuminate\Http\Request;
 
 class PriceController extends Controller
 {
@@ -12,14 +13,9 @@ class PriceController extends Controller
         return Price::all();
     }
 
-    public function store(Request $request)
+    public function store(PriceStoreRequest $request)
     {
-        $validated = $request->validate([
-            'configuration_id' => 'required|exists:configurations,id',
-            'price' => 'required|numeric',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after:start_date',
-        ]);
+        $validated = $request->validate();
         return Price::create($validated);
     }
 
@@ -28,13 +24,10 @@ class PriceController extends Controller
         return Price::findOrFail($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(PriceUpdateRequest $request, $id)
     {
         $validated = $request->validate([
-            'configuration_id' => 'required|exists:configurations,id',
-            'price' => 'required|numeric',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after:start_date',
+            
         ]);
         $price = Price::findOrFail($id);
         $price->update($validated);

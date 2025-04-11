@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PriceRequest extends FormRequest
+class CarStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,7 +14,7 @@ class PriceRequest extends FormRequest
     public function rules(): array
     {
         return [
-                //
-            ];
+            'name' => 'required|string|max:255',
+        ];
     }
 }

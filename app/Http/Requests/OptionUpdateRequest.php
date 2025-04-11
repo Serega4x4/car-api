@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ConfigurationRequest extends FormRequest
+class OptionUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,7 +14,7 @@ class ConfigurationRequest extends FormRequest
     public function rules(): array
     {
         return [
-                //
-            ];
+            'name' => 'required|string|max:255',
+        ];
     }
 }

@@ -1,1 +1,0 @@
-swagger zircote/swagger-php  
