@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CarStoreRequest;
 use App\Http\Requests\CarUpdateRequest;
 use App\Models\Car;
+use Illuminate\Support\Facades\Cache;
 
 class CarController extends Controller
 {
@@ -37,12 +38,17 @@ class CarController extends Controller
 
     public function getAvailableCars()
     {
-        $cars = Car::with([
-            'configurations' => function ($query) {
-                $query->with('prices');
-            },
-            'configurations.prices',
-        ])->get();
+        $cacheKey = 'available_cars';
+        $cacheTime = now()->addMinutes(10);
+
+        $cars = Cache::remember($cacheKey, $cacheTime, function () {
+            return Car::with([
+                'configurations' => function ($query) {
+                    $query->with('prices');
+                },
+                'configurations.prices',
+            ])->get();
+        });
 
         return response()->json($cars);
     }
