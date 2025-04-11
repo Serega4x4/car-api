@@ -2,47 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Configuration;
 use Illuminate\Http\Request;
 
 class ConfigurationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Configuration::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'car_id' => 'required|exists:cars,id',
+            'name' => 'required|string|max:255',
+        ]);
+        return Configuration::create($validated);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        return Configuration::findOrFail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'car_id' => 'required|exists:cars,id',
+            'name' => 'required|string|max:255',
+        ]);
+        $configuration = Configuration::findOrFail($id);
+        $configuration->update($validated);
+        return $configuration;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Configuration::destroy($id);
+        return response()->noContent();
     }
 }

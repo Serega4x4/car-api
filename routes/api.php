@@ -1,11 +1,15 @@
 <?php
 
-use App\Http\Controllers\PublicCarController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\OptionController;
+use App\Http\Controllers\PriceController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::get('/cars/available', [CarController::class, 'getAvailableCars'])->name('available');
 
-Route::get('/cars/available', [PublicCarController::class, 'available'])->name('available');
+Route::apiResource('options', OptionController::class);
+
+Route::apiResource('configurations', ConfigurationController::class);
+
+Route::apiResource('prices', PriceController::class);
