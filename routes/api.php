@@ -8,4 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/cars/available', [PublicCarController::class, 'available']);
+Route::get('/cars/available', [PublicCarController::class, 'available'])->name('available');
