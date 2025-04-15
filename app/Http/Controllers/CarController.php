@@ -29,18 +29,19 @@ class CarController extends Controller
 
     public function store(CarStoreRequest $request)
     {
-        return Car::create($request->validated());
+        $car = Car::create($request->validated());
+        return new CarResource($car);
     }
 
     public function show(Car $car)
     {
-        return response()->json($car);
+        return new CarResource($car);
     }
 
     public function update(CarUpdateRequest $request, Car $car)
     {
         $car->update($request->validated());
-        return $car;
+        return new CarResource($car);
     }
 
     public function destroy(Car $car)

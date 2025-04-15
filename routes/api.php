@@ -6,7 +6,7 @@ use App\Http\Controllers\OptionController;
 use App\Http\Controllers\PriceController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/cars/', [CarController::class, 'index'])->name('available');
+Route::apiResource('cars', CarController::class);
 
 Route::apiResource('options', OptionController::class);
 
