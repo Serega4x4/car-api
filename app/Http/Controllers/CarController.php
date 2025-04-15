@@ -11,33 +11,6 @@ class CarController extends Controller
 {
     public function index()
     {
-        return Car::all();
-    }
-
-    public function store(CarStoreRequest $request)
-    {
-        return Car::create($request->validated());
-    }
-
-    public function show(Car $car)
-    {
-        return $car;
-    }
-
-    public function update(CarUpdateRequest $request, Car $car)
-    {
-        $car->update($request->validated());
-        return $car;
-    }
-
-    public function destroy(Car $car)
-    {
-        $car->delete();
-        return response()->noContent();
-    }
-
-    public function getAvailableCars()
-    {
         $cacheKey = 'available_cars';
         $cacheTime = now()->addMinutes(10);
 
@@ -51,5 +24,27 @@ class CarController extends Controller
         });
 
         return response()->json($cars);
+    }
+
+    public function store(CarStoreRequest $request)
+    {
+        return Car::create($request->validated());
+    }
+
+    public function show(Car $car)
+    {
+        return response()->json($car);
+    }
+
+    public function update(CarUpdateRequest $request, Car $car)
+    {
+        $car->update($request->validated());
+        return $car;
+    }
+
+    public function destroy(Car $car)
+    {
+        $car->delete();
+        return response()->noContent();
     }
 }
