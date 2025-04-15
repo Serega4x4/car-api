@@ -16,13 +16,13 @@
 Для начала клонируйте проект с GitHub:
 
 ```bash
-git clone https://github.com/Serega4x4/cra-api.git
+git clone https://github.com/Serega4x4/car-api.git
 ```  
 2. Установка зависимостей
 
 Перейдите в директорию проекта:  
 ```bash
-cd cra-api
+cd car-api
 ```  
 Установите все зависимости с помощью Composer:  
 ```bash
