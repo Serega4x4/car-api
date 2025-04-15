@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarStoreRequest;
 use App\Http\Requests\CarUpdateRequest;
+use App\Http\Resources\CarResource;
 use App\Models\Car;
 use Illuminate\Support\Facades\Cache;
 
@@ -23,7 +24,7 @@ class CarController extends Controller
             ])->get();
         });
 
-        return response()->json($cars);
+        return CarResource::collection($cars);
     }
 
     public function store(CarStoreRequest $request)
